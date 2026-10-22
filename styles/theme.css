@@ -1,0 +1,11 @@
+/* CDN Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Noto+Serif+KR&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+/* CSS Variables */
+:root {
+  --font-ko-main: 'Noto Sans KR';
+  --font-ko-sub: 'Noto Serif KR';
+  --font-en-main: 'Cinzel';
+  --color-primary: #FFFFFF;
+  --color-secondary: #5B9AA8;
+}

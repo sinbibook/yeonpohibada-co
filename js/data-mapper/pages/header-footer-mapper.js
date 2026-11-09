@@ -359,19 +359,31 @@
   // 프리뷰는 같은 페이지에서 다시 매핑하므로 매번 표시 상태를 되돌린다.
   HeaderFooterMapper.prototype.mapRuralStayMark = function () {
     var footer = this.getCustomFields().footer || {};
-    var mark = footer.ruralStayMark;
-    var markUrl = mark && mark.url ? String(mark.url) : '';
+    var footerMarks = footer;
+    var marks = Array.isArray(footerMarks.ruralStayMarks)
+      ? footerMarks.ruralStayMarks.slice(0, 2)
+      : [footerMarks.ruralStayMark];
+    var markUrl = marks.some(function (mark) { return mark && mark.url; });
 
     document.querySelectorAll('[data-footer-rural-stay-mark-wrap]').forEach(function (wrap) {
       wrap.style.display = markUrl ? '' : 'none';
     });
-    document.querySelectorAll('[data-footer-rural-stay-mark]').forEach(function (img) {
-      if (!markUrl) {
-        img.removeAttribute('src');
-        return;
-      }
-      img.src = markUrl;
-      img.alt = (mark.description && String(mark.description).trim()) || '농어촌민박사업자';
+    document.querySelectorAll('[data-footer-rural-stay-mark-wrap]').forEach(function (wrap) {
+      var images = wrap.querySelectorAll('[data-footer-rural-stay-mark]');
+      var count = marks.filter(function (mark) { return mark && mark.url; }).length;
+      images.forEach(function (img, index) {
+        var mark = marks[index];
+        var url = mark && mark.url ? String(mark.url) : '';
+        img.style.display = url ? 'inline-block' : 'none';
+        img.style.maxWidth = count > 1 ? 'calc((100% - 12px) / 2)' : '';
+        img.style.marginLeft = index && url && marks[0] && marks[0].url ? '12px' : '';
+        if (!url) {
+          img.removeAttribute('src');
+          return;
+        }
+        img.src = url;
+        img.alt = (mark.description && String(mark.description).trim()) || '농어촌민박사업자';
+      });
     });
   };
 

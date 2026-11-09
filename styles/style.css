@@ -3180,8 +3180,8 @@
 /* ── 푸터 농어촌민박사업자 이미지 (템플릿 확장) ─────────────────────
    customFields.footer.ruralStayMark 가 있을 때만 매퍼가 노출한다(마크업 기본 숨김).
    푸터에 로고가 없어 푸터 맨 위(전화번호 위) 가운데에 독립된 줄로 둔다.
-   표시마크 이미지는 세로형(마크 + 신고번호 박스)이라 높이를 고정하고 비율은 이미지에 맡긴다.
-   신고번호가 읽히도록 모바일에서도 64px 아래로 줄이지 않는다.
+   표시마크 이미지는 세로형(마크 + 신고번호 박스)이라 폭을 고정(PC 180px / 모바일 160px)하고 높이는 비율에 맡긴다.
+   신고번호가 읽히도록 모바일에서도 160px 아래로 줄이지 않는다.
    아래 `.tel` 이 위아래 20px 패딩을 갖고 있어 이미지 줄에는 아래 여백을 따로 주지 않는다. */
 .footer_wrap .footer .ft_rural_stay_mark_wrap {
   display: flex;
@@ -3189,17 +3189,19 @@
 }
 .footer_wrap .footer .ft_rural_stay_mark {
   display: block;
-  width: auto;
-  height: 80px;
+  width: 180px;
+  height: auto;
   max-width: 100%;
   object-fit: contain;
+}
+@media only screen and (max-width: 767px) {
+  .footer_wrap .footer .ft_rural_stay_mark {
+    width: 160px;
+  }
 }
 @media only screen and (max-width: 767px) {
   /* 모바일은 .footer_wrap 위 패딩이 0 이라 위 테두리에 붙지 않게 띄운다 */
   .footer_wrap .footer .ft_rural_stay_mark_wrap {
     padding-top: 20px;
-  }
-  .footer_wrap .footer .ft_rural_stay_mark {
-    height: 64px;
   }
 }
